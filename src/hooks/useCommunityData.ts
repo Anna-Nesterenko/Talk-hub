@@ -72,7 +72,6 @@ const useCommunityData = () => {
   };
 
   const leaveCommunity = async (communityId: string) => {
-    console.log("communityId: ", communityId);
     try {
       const batch = writeBatch(firestore);
 
@@ -110,7 +109,6 @@ const useCommunityData = () => {
         mySnippets: snippets as CommunitySnippet[],
       }));
 
-      console.log("snippets", snippets);
     } catch (error: any) {
       console.log("getMYSnippetsError", error);
       setError(error.message);
@@ -119,7 +117,10 @@ const useCommunityData = () => {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setCommunityStateValue((prev) => ({ ...prev, mySnippets: [] }));
+      return;
+    }
     getMySnippets();
   }, [user]);
 

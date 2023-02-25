@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilValue } from "recoil";
 
 const SubmitPostPage = () => {
-  const [user, loadingUser, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const router = useRouter();
   const { community } = router.query;
   const communityStateValue = useRecoilValue(communityState);
@@ -22,11 +22,13 @@ const SubmitPostPage = () => {
         <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
           <Text fontWeight={600}>Create a post</Text>
         </Box>
-        <NewPostForm
-        //   communityId={communityStateValue.currentCommunity.id}
-        //   communityImageURL={communityStateValue.currentCommunity.imageURL}
-        //   user={user}
-        />
+        {user && (
+          <NewPostForm
+            // communityId={communityStateValue.currentCommunity.id}
+            //   communityImageURL={communityStateValue.currentCommunity.imageURL}
+            user={user}
+          />
+        )}
       </>
       <>about component</>
     </PageContentLayout>

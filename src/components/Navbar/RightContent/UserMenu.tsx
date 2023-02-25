@@ -7,7 +7,7 @@ import { VscAccount } from "react-icons/vsc";
 import { IoSparkles } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogin } from "react-icons/md";
-import { useResetRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtom";
 import {
   Flex,
@@ -19,17 +19,14 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { communityState } from "@/atoms/communitiesAtom";
 
 type UserMenuProps = { user?: User | null };
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const setAuthModalState = useSetRecoilState(authModalState);
-  const resetCommunityState = useResetRecoilState(communityState);
 
   const logout = async () => {
     await signOut(auth);
-    resetCommunityState();
   };
 
   return (

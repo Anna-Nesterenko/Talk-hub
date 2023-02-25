@@ -63,7 +63,7 @@ const CommunityModal: React.FC<CommunityModalProps> = ({
       const communityDocRef = doc(firestore, "communities", communityName);
 
       await runTransaction(firestore, async (transaction) => {
-        // console.log("transaction", transaction);
+
         const communityDoc = await transaction.get(communityDocRef);
         if (communityDoc.exists()) {
           throw new Error(`Sorry, r/${communityName} is taken. Try another.`);
