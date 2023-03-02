@@ -8,17 +8,18 @@ import CommunityNotFound from "@/components/Community/CommunityNotFound";
 import Header from "@/components/Community/Header";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import CommunityPostLink from "@/components/Community/CommunityPostLink";
-import Posts from "@/components/Posts/Posts";
+import Posts from "@/components/Posts";
 import { useRecoilState } from "recoil";
 import { useAuthState } from "react-firebase-hooks/auth";
 import About from "@/components/Community/About";
+import { Box } from "@chakra-ui/react";
 
 type CommunityPageProps = {
   communityData: Community;
 };
 
 const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
-const [user, loadingUser] = useAuthState(auth);
+  const [user, loadingUser] = useAuthState(auth);
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
 
@@ -27,6 +28,7 @@ const [user, loadingUser] = useAuthState(auth);
       ...prev,
       currentCommunity: communityData,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [communityData]);
 
   // Community was not found in the database
@@ -43,7 +45,9 @@ const [user, loadingUser] = useAuthState(auth);
           <Posts communityData={communityData} />
         </>
         <>
-          <About communityData={communityData} />
+          <Box display="block">
+            <About communityData={communityData} />
+          </Box>
         </>
       </PageContentLayout>
     </>

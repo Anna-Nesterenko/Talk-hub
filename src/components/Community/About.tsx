@@ -63,7 +63,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
     setUploadingImage(false);
   };
   return (
-    <Box position="sticky" top="14px" width="100%">
+    <Box position="sticky" top="14px" width="250px">
       <Flex
         justify="space-between"
         align="center"

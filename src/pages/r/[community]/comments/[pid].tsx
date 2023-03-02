@@ -1,19 +1,51 @@
+import { Post } from "@/atoms/postsAtom";
 import About from "@/components/Community/About";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
+import Comments from "@/components/Posts/Comments";
 import PostItem from "@/components/Posts/PostItem";
-import { auth } from "@/firebase/config";
+import { auth, firestore } from "@/firebase/config";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
+import { Box } from "@chakra-ui/react";
+import { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const PostPage = () => {
   const [user] = useAuthState(auth);
+  const router = useRouter();
+  //   const { community, pid } = router.query;
 
   const { communityStateValue } = useCommunityData();
-  const { postStateValue, setPostStateValue, onDeletePost, onVote } = usePosts(
-    communityStateValue.currentCommunity
-  );
+  const { postStateValue, setPostStateValue, onDeletePost, onVote } =
+    usePosts();
+  // communityStateValue.currentCommunity
+
+  const fetchPost = async (postId: string) => {
+    console.log("FETCHING POST");
+
+    // setLoading(true);
+    try {
+      const postDocRef = doc(firestore, "posts", postId);
+      const postDoc = await getDoc(postDocRef);
+      setPostStateValue((prev) => ({
+        ...prev,
+        selectedPost: { id: postDoc.id, ...postDoc.data() } as Post,
+      }));
+    } catch (error: any) {
+      console.log("fetchPost error", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const { pid } = router.query;
+    if (pid && !postStateValue.selectedPost) {
+      fetchPost(pid as string);
+    }
+  }, [router.query, postStateValue.selectedPost]);
+
   return (
     <PageContentLayout>
       <>
@@ -30,9 +62,18 @@ const PostPage = () => {
             userIsCreator={user?.uid === postStateValue.selectedPost?.creatorId}
           />
         )}
+        <Comments
+          user={user as User}
+          selectedPost={postStateValue.selectedPost}
+          communityId={postStateValue.selectedPost?.communityId as string}
+        />
       </>
       <>
-        {/* <About communityData={communityStateValue.currentCommunity} /> */}
+        <Box display="block">
+          {communityStateValue.currentCommunity && (
+            <About communityData={communityStateValue.currentCommunity} />
+          )}
+        </Box>
       </>
     </PageContentLayout>
   );

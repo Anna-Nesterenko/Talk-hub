@@ -22,6 +22,8 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
+import useDirectory from "@/hooks/useDirectory";
 
 type CommunityModalProps = { open: boolean; handleClose: () => void };
 
@@ -35,6 +37,8 @@ const CommunityModal: React.FC<CommunityModalProps> = ({
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { toggleMenuOpen } = useDirectory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 21) return;
@@ -63,7 +67,6 @@ const CommunityModal: React.FC<CommunityModalProps> = ({
       const communityDocRef = doc(firestore, "communities", communityName);
 
       await runTransaction(firestore, async (transaction) => {
-
         const communityDoc = await transaction.get(communityDocRef);
         if (communityDoc.exists()) {
           throw new Error(`Sorry, r/${communityName} is taken. Try another.`);
@@ -84,6 +87,12 @@ const CommunityModal: React.FC<CommunityModalProps> = ({
           }
         );
       });
+
+      handleClose();
+		toggleMenuOpen();
+		
+		router.push(`r/${communityName}`);
+		
     } catch (error) {
       console.log("handleCreateCommunity error", error);
       setError((error as Error).message);

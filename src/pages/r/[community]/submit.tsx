@@ -1,4 +1,5 @@
 import { communityState } from "@/atoms/communitiesAtom";
+import About from "@/components/Community/About";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import NewPostForm from "@/components/Posts/PostForm/NewPostForm";
 import { auth } from "@/firebase/config";
@@ -7,14 +8,13 @@ import { Box, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilValue } from "recoil";
 
 const SubmitPostPage = () => {
   const [user] = useAuthState(auth);
   const router = useRouter();
   const { community } = router.query;
-  const communityStateValue = useRecoilValue(communityState);
-  const { loading } = useCommunityData();
+  const { communityStateValue, loading } = useCommunityData();
+  console.log("community", communityStateValue);
 
   return (
     <PageContentLayout maxWidth="1060px">
@@ -25,12 +25,16 @@ const SubmitPostPage = () => {
         {user && (
           <NewPostForm
             // communityId={communityStateValue.currentCommunity.id}
-            //   communityImageURL={communityStateValue.currentCommunity.imageURL}
+            communityImageURL={communityStateValue.currentCommunity?.imageURL}
             user={user}
           />
         )}
       </>
-      <>about component</>
+      <>
+        {communityStateValue.currentCommunity && (
+          <About communityData={communityStateValue.currentCommunity} />
+        )}
+      </>
     </PageContentLayout>
   );
 };

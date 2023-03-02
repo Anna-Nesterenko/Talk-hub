@@ -1,5 +1,6 @@
 import { authModalState } from "@/atoms/authModalAtom";
 import { auth } from "@/firebase/config";
+import useDirectory from "@/hooks/useDirectory";
 import { Flex, Icon, Input } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,6 +13,7 @@ const CommunityPostLink = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
+  const { toggleMenuOpen } = useDirectory();
 
   const onClick = () => {
     if (!user) {
@@ -25,6 +27,7 @@ const CommunityPostLink = () => {
       return;
     }
     // Open directory menu to select community to post to
+    toggleMenuOpen();
   };
 
   return (

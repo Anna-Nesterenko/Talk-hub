@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   Community,
@@ -13,12 +14,14 @@ import {
   writeBatch,
   doc,
   increment,
+  getDoc,
 } from "firebase/firestore";
 import { authModalState } from "@/atoms/authModalAtom";
 
 const useCommunityData = () => {
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
+  const router = useRouter();
 
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
@@ -50,6 +53,7 @@ const useCommunityData = () => {
       const newSnippet: CommunitySnippet = {
         communityId: community.id,
         imageURL: community.imageURL || "",
+        isModerator: user?.uid === community.creatorId,
       };
       batch.set(
         doc(firestore, `users/${user?.uid}/communitySnippets`, community.id),
@@ -107,8 +111,8 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        snippetsFetched: true,
       }));
-
     } catch (error: any) {
       console.log("getMYSnippetsError", error);
       setError(error.message);
@@ -116,13 +120,45 @@ const useCommunityData = () => {
     setLoading(false);
   };
 
+  const getCommunityData = async (communityId: string) => {
+    console.log("GETTING COMMUNITY DATA");
+
+    try {
+      const communityDocRef = doc(firestore, "communities", communityId);
+      const communityDoc = await getDoc(communityDocRef);
+
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        currentCommunity: {
+          id: communityDoc.id,
+          ...communityDoc.data(),
+        } as Community,
+      }));
+    } catch (error: any) {
+      console.log("getCommunityData error", error.message);
+    }
+  };
+
   useEffect(() => {
     if (!user) {
-      setCommunityStateValue((prev) => ({ ...prev, mySnippets: [] }));
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: [],
+        snippetsFetched: false,
+      }));
       return;
     }
     getMySnippets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    const { community } = router.query;
+    if (community && !communityStateValue.currentCommunity) {
+      getCommunityData(community as string);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query, communityStateValue.currentCommunity]);
 
   return { onJoinOrLeaveCommunity, communityStateValue, loading };
 };

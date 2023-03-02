@@ -24,11 +24,11 @@ export interface CommunityState {
   //     | boolean
   //     | undefined;
   mySnippets: CommunitySnippet[];
-  //   initSnippetsFetched: boolean;
+  snippetsFetched: boolean;
+  currentCommunity?: Community;
   //   visitedCommunities: {
   //     [key: string]: Community;
   //   };
-  currentCommunity?: Community;
 }
 
 // export const defaultCommunity: Community = {
@@ -40,6 +40,7 @@ export interface CommunityState {
 
 export const defaultCommunityState: CommunityState = {
   mySnippets: [],
+  snippetsFetched: false,
   //   initSnippetsFetched: false,
   //   visitedCommunities: {},
   //   currentCommunity: defaultCommunity,

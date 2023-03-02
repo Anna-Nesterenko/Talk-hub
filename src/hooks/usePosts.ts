@@ -163,6 +163,7 @@ const usePosts = (communityData?: Community) => {
   useEffect(() => {
     if (!user || !currentCommunity?.id) return;
     getCommunityPostVotes(currentCommunity?.id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, currentCommunity]);
 
   useEffect(() => {
@@ -170,6 +171,7 @@ const usePosts = (communityData?: Community) => {
     if (!user) {
       setPostStateValue((prev) => ({ ...prev, postVotes: [] }));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return {

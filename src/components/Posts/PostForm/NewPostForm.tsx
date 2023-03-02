@@ -48,12 +48,14 @@ export type TabItemType = {
 };
 
 type NewPostFormProps = {
-  //   communityId: string;
-  //   communityImageURL?: string;
+  communityImageURL?: string;
   user: User;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityImageURL,
+}) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
   const [textInputs, setTextInputs] = useState({ title: "", body: "" });
@@ -61,16 +63,15 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const selectFileRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
+  const { community } = router.query;
 
   const handleCreatePost = async () => {
     setLoading(true);
     const { title, body } = textInputs;
-    const { community } = router.query;
-
     try {
       const postDocRef = await addDoc(collection(firestore, "posts"), {
         communityId: community,
-        // communityImageURL: communityImageURL || "",
+        communityImageURL: communityImageURL || "",
         creatorId: user.uid,
         userDisplayText: user.email!.split("@")[0],
         title,
@@ -81,18 +82,20 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         editedAt: serverTimestamp(),
       });
 
-      //check for selected file
+      console.log("HERE IS NEW POST ID", postDocRef.id);
+
+      // check if selectedFile exists, if it does, do image processing
       if (selectedFile) {
         const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
         await uploadString(imageRef, selectedFile, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
-        //update post doc by imageUrl
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
-
-        router.back();
+        console.log("HERE IS DOWNLOAD URL", downloadURL);
       }
+
+      router.back();
     } catch (error) {
       console.log("createPost error", error);
       setError("Error creating post");
