@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Spinner, Stack, Text } from "@chakra-ui/react";
 import { Timestamp } from "firebase/firestore";
 import moment from "moment";
 import React from "react";
-import { FaReddit } from "react-icons/fa";
+import { FaGrinHearts } from "react-icons/fa";
 import {
   IoArrowDownCircleOutline,
   IoArrowUpCircleOutline,
@@ -35,7 +35,7 @@ const CommentItem: React.FC<ItemProps> = ({
   return (
     <Flex>
       <Box mr={2}>
-        <Icon as={FaReddit} fontSize={30} color="gray.300" />
+        <Icon as={FaGrinHearts} fontSize={24} color="gray.300" />
       </Box>
       <Stack spacing={1}>
         <Stack direction="row" align="center" spacing={2} fontSize="8pt">

@@ -1,5 +1,6 @@
 import { communityState } from "@/atoms/communitiesAtom";
-import { Post } from "@/atoms/postsAtom";
+import { Post, PostVote } from "@/atoms/postsAtom";
+import Recommendations from "@/components/Community/Recommendations";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import Posts from "@/components/Posts";
 import PostItem from "@/components/Posts/PostItem";
@@ -7,7 +8,7 @@ import PostLoader from "@/components/Posts/PostLoader";
 import { auth, firestore } from "@/firebase/config";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
-import { Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import {
   limit,
   orderBy,
@@ -90,7 +91,26 @@ const Home = () => {
     setLoading(false);
   };
 
-  const getUserPostVotes = async () => {};
+  const getUserPostVotes = async () => {
+    try {
+      const postIds = postStateValue.posts.map((post) => post.id);
+      const postVotesQuery = query(
+        collection(firestore, `users/${user?.uid}/postVotes`),
+        where("postId", "in", postIds)
+      );
+      const postVoteDocs = await getDocs(postVotesQuery);
+      const postVotes = postVoteDocs.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: postVotes as PostVote[],
+      }));
+    } catch (error) {
+      console.log("getUserPostVotes error", error);
+    }
+  };
 
   useEffect(() => {
     if (communityStateValue.snippetsFetched) getUserHomePosts();
@@ -103,6 +123,17 @@ const Home = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loadingUser]);
+
+  useEffect(() => {
+    if (user && postStateValue.posts.length) getUserPostVotes();
+    return () => {
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, postStateValue.posts]);
 
   return (
     <PageContentLayout>
@@ -130,7 +161,11 @@ const Home = () => {
           </Stack>
         )}
       </>
-      <>{/* <Recommendations /> */}</>
+      <>
+        {/* <Box display="block"> */}
+        <Recommendations />
+        {/* </Box> */}
+      </>
     </PageContentLayout>
   );
 };

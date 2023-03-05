@@ -97,9 +97,7 @@ const Comments: React.FC<commentsProps> = ({
 
       const postDocRef = doc(firestore, "posts", selectedPost?.id as string);
       batch.update(postDocRef, { numberOfComments: increment(-1) });
-      //   batch.update(doc(firestore, "posts", comment.postId), {
-      //     numberOfComments: increment(-1),
-      //   });
+
       await batch.commit();
 
       setPostState((prev) => ({

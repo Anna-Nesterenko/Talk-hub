@@ -19,14 +19,13 @@ import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { FaReddit } from "react-icons/fa";
+import { FaGlobeEurope } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
 import { useSetRecoilState } from "recoil";
 
 type AboutProps = {
   communityData: Community;
-  //   pt?: number;
 };
 
 const About: React.FC<AboutProps> = ({ communityData }) => {
@@ -145,7 +144,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                     />
                   ) : (
                     <Icon
-                      as={FaReddit}
+                      as={FaGlobeEurope}
                       fontSize={40}
                       color="brand.100"
                       mr={2}

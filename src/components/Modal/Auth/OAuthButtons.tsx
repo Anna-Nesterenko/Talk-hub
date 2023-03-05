@@ -39,7 +39,6 @@ const OAuthButtons: React.FC = () => {
         />
         Continue with Google
       </Button>
-      <Button variant="oauth">Some other Provider</Button>
 
       <Text textAlign="center" color="red" fontSize="10pt">
         {error?.message ||

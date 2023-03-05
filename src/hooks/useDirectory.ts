@@ -1,4 +1,4 @@
-import { FaReddit } from "react-icons/fa";
+import { FaGlobeEurope} from "react-icons/fa";
 import { communityState } from "@/atoms/communitiesAtom";
 import {
   defaultMenuItem,
@@ -39,7 +39,7 @@ const useDirectory = () => {
           displayText: `r/${currentCommunity.id}`,
           link: `/r/${currentCommunity.id}`,
           imageURL: currentCommunity.imageURL,
-          icon: FaReddit,
+          icon: FaGlobeEurope,
           iconColor: "blue.500",
         },
       }));

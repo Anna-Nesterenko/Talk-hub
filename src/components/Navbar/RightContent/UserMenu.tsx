@@ -2,7 +2,6 @@ import React from "react";
 import { auth } from "@/firebase/config";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { signOut, User } from "firebase/auth";
-import { FaRedditSquare } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { IoSparkles } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
@@ -19,6 +18,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
+import { BsPersonSquare } from "react-icons/bs";
 
 type UserMenuProps = { user?: User | null };
 
@@ -39,7 +39,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         <Flex align="center">
           {user ? (
             <>
-              <Icon fontSize={24} mr={1} color="gray.300" as={FaRedditSquare} />
+              <Icon fontSize={24} mr={2} color="gray.300" as={BsPersonSquare} />
               <Flex
                 direction="column"
                 display={{ base: "none", lg: "flex" }}
@@ -50,10 +50,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                 <Text fontWeight={700}>
                   {user?.displayName || user.email?.split("@")[0]}
                 </Text>
-                <Flex>
+                {/* <Flex>
                   <Icon as={IoSparkles} color="brand.100" mr={1} />
                   <Text color="gray.400">1 karma</Text>
-                </Flex>
+                </Flex> */}
               </Flex>
             </>
           ) : (

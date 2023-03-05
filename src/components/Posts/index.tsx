@@ -12,8 +12,6 @@ import PostLoader from "./PostLoader";
 
 type PostsProps = {
   communityData: Community;
-  //   userId?: string;
-  //   loadingUser: boolean;
 };
 
 const Posts: React.FC<PostsProps> = ({ communityData }) => {

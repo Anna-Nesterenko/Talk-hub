@@ -24,7 +24,7 @@ import {
   IoBookmarkOutline,
 } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { FaReddit } from "react-icons/fa";
+import { FaGlobeEurope } from "react-icons/fa";
 import Link from "next/link";
 
 type PostItemProps = {
@@ -139,7 +139,12 @@ const PostItem: React.FC<PostItemProps> = ({
                     mr={2}
                   />
                 ) : (
-                  <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
+                  <Icon
+                    as={FaGlobeEurope}
+                    fontSize={18}
+                    mr={1}
+                    color="blue.500"
+                  />
                 )}
                 <Link href={`r/${post.communityId}`}>
                   <Text

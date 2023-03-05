@@ -5,7 +5,7 @@ import { GrAdd } from "react-icons/gr";
 import { useRecoilValue } from "recoil";
 import { communityState } from "@/atoms/communitiesAtom";
 import MenuListItem from "./MenuListItem";
-import { FaReddit } from "react-icons/fa";
+import { FaGlobeEurope} from "react-icons/fa";
 
 
 const Communities = () => {
@@ -26,7 +26,7 @@ const Communities = () => {
               key={snippet.communityId}
               displayText={`r/${snippet.communityId}`}
               link={`/r/${snippet.communityId}`}
-              icon={FaReddit}
+              icon={FaGlobeEurope}
               iconColor="brand.100"
               imageURL={snippet.imageURL}
             />
@@ -50,7 +50,7 @@ const Communities = () => {
         {mySnippets.map((snippet) => (
           <MenuListItem
             key={snippet.communityId}
-            icon={FaReddit}
+            icon={FaGlobeEurope}
             displayText={`r/${snippet.communityId}`}
             link={`/r/${snippet.communityId}`}
             iconColor="blue.500"
