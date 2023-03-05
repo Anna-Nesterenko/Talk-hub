@@ -1,7 +1,7 @@
-Talk Hub
+Talk Hub <br/>
 This is a site, where you can create a community, add/remove posts, and comment on posts. Connect to the community. Change your community avatar. Like your favorite posts
 
-Features
+Features <br/>
 Sign in, Sign up, Sign Out, refresh password
 Creating a unique community
 Join an available community
@@ -11,6 +11,6 @@ Like your favorite posts and dislike
 Change community's avatar
 Hide elements from unregistered users
 
-Technologies
+Technologies <br/>
 Front-end: NextJS, Chakra-ui, Recoil, Typescript
 Back-end: Firebase, Firebase-functions, Firebase-admin
