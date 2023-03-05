@@ -16,17 +16,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const PostPage = () => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  //   const { community, pid } = router.query;
 
   const { communityStateValue } = useCommunityData();
   const { postStateValue, setPostStateValue, onDeletePost, onVote } =
     usePosts();
-  // communityStateValue.currentCommunity
 
   const fetchPost = async (postId: string) => {
     console.log("FETCHING POST");
-
-    // setLoading(true);
     try {
       const postDocRef = doc(firestore, "posts", postId);
       const postDoc = await getDoc(postDocRef);
@@ -44,6 +40,7 @@ const PostPage = () => {
     if (pid && !postStateValue.selectedPost) {
       fetchPost(pid as string);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query, postStateValue.selectedPost]);
 
   return (

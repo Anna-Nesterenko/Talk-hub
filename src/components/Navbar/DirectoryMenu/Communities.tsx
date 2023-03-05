@@ -11,7 +11,7 @@ import { FaGlobeEurope} from "react-icons/fa";
 const Communities = () => {
   const [open, setOpen] = useState(false);
   const mySnippets = useRecoilValue(communityState).mySnippets;
-  console.log(mySnippets);
+//   console.log(mySnippets);
   return (
     <>
       <CommunityModal open={open} handleClose={() => setOpen(false)} />

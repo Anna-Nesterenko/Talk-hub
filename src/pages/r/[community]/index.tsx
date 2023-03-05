@@ -10,7 +10,6 @@ import PageContentLayout from "@/components/Layout/PageContentLayout";
 import CommunityPostLink from "@/components/Community/CommunityPostLink";
 import Posts from "@/components/Posts";
 import { useRecoilState } from "recoil";
-import { useAuthState } from "react-firebase-hooks/auth";
 import About from "@/components/Community/About";
 import { Box } from "@chakra-ui/react";
 
@@ -19,7 +18,6 @@ type CommunityPageProps = {
 };
 
 const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
-  const [user, loadingUser] = useAuthState(auth);
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
 

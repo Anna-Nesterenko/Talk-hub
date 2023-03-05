@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/config";
 import { FIREBASE_ERRORS } from "@/firebase/errors";
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { User } from "@firebase/auth";
 
 const SignUp: React.FC = () => {

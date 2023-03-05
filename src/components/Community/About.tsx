@@ -77,19 +77,6 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         <Icon as={HiOutlineDotsHorizontal} cursor="pointer" />
       </Flex>
       <Flex direction="column" p={3} bg="white" borderRadius="0px 0px 4px 4px">
-        {/* <Box
-          bg="gray.100"
-          width="100%"
-          p={2}
-          borderRadius={4}
-          border="1px solid"
-          borderColor="gray.300"
-          cursor="pointer"
-        >
-          <Text fontSize="9pt" fontWeight={700} color="blue.500">
-            Add description
-          </Text>
-        </Box> */}
         <Stack spacing={2}>
           <Flex width="100%" p={2} fontWeight={600} fontSize="10pt">
             <Flex direction="column" flexGrow={1}>

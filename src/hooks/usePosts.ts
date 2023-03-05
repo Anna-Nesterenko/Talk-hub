@@ -3,7 +3,7 @@ import { Community, communityState } from "@/atoms/communitiesAtom";
 import { Post, postState, PostVote } from "@/atoms/postsAtom";
 import { auth, firestore, storage } from "@/firebase/config";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { deleteObject, ref } from "firebase/storage";
@@ -18,13 +18,10 @@ import {
 } from "firebase/firestore";
 
 const usePosts = (communityData?: Community) => {
-  const [user, loadingUser] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [postStateValue, setPostStateValue] = useRecoilState(postState);
   const setAuthModalState = useSetRecoilState(authModalState);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const router = useRouter();
-  const communityStateValue = useRecoilValue(communityState);
   const currentCommunity = useRecoilValue(communityState).currentCommunity;
 
   const onVote = async (
@@ -163,7 +160,7 @@ const usePosts = (communityData?: Community) => {
   useEffect(() => {
     if (!user || !currentCommunity?.id) return;
     getCommunityPostVotes(currentCommunity?.id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, currentCommunity]);
 
   useEffect(() => {
@@ -171,7 +168,7 @@ const usePosts = (communityData?: Community) => {
     if (!user) {
       setPostStateValue((prev) => ({ ...prev, postVotes: [] }));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return {

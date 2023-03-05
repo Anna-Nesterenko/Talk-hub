@@ -1,4 +1,3 @@
-import { authModalState } from "@/atoms/authModalAtom";
 import { Post, postState } from "@/atoms/postsAtom";
 import { firestore } from "@/firebase/config";
 import {
@@ -43,7 +42,6 @@ const Comments: React.FC<commentsProps> = ({
   const [commentFetchLoading, setCommentFetchLoading] = useState(true);
   const [commentCreateLoading, setCommentCreateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState("");
-  const setAuthModalState = useSetRecoilState(authModalState);
   const setPostState = useSetRecoilState(postState);
 
   const onCreateComment = async (comment: string) => {

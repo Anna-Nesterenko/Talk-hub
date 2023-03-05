@@ -1,19 +1,15 @@
-import { communityState } from "@/atoms/communitiesAtom";
 import About from "@/components/Community/About";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import NewPostForm from "@/components/Posts/PostForm/NewPostForm";
 import { auth } from "@/firebase/config";
 import useCommunityData from "@/hooks/useCommunityData";
 import { Box, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const SubmitPostPage = () => {
   const [user] = useAuthState(auth);
-  const router = useRouter();
-  const { community } = router.query;
-  const { communityStateValue, loading } = useCommunityData();
+  const { communityStateValue } = useCommunityData();
   console.log("community", communityStateValue);
 
   return (
@@ -24,7 +20,6 @@ const SubmitPostPage = () => {
         </Box>
         {user && (
           <NewPostForm
-            // communityId={communityStateValue.currentCommunity.id}
             communityImageURL={communityStateValue.currentCommunity?.imageURL}
             user={user}
           />

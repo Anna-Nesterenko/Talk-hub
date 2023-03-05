@@ -8,7 +8,7 @@ import PostLoader from "@/components/Posts/PostLoader";
 import { auth, firestore } from "@/firebase/config";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
-import { Box, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import {
   limit,
   orderBy,
@@ -19,7 +19,6 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilValue } from "recoil";
 
 const Home = () => {
   const [user, loadingUser] = useAuthState(auth);
@@ -162,9 +161,7 @@ const Home = () => {
         )}
       </>
       <>
-        {/* <Box display="block"> */}
         <Recommendations />
-        {/* </Box> */}
       </>
     </PageContentLayout>
   );
