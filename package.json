@@ -21,6 +21,8 @@
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "firebase": "^9.16.0",
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.2.1",
     "framer-motion": "^9.0.0",
     "moment": "^2.29.4",
     "next": "13.1.6",
