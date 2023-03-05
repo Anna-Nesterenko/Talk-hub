@@ -55,7 +55,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         } as Community,
       }));
 
-      console.log("HERE IS DOWNLOAD URL", downloadURL);
+    //   console.log("HERE IS DOWNLOAD URL", downloadURL);
     } catch (error: any) {
       console.log("updateImage error", error.message);
     }

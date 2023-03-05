@@ -82,7 +82,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
         editedAt: serverTimestamp(),
       });
 
-      console.log("HERE IS NEW POST ID", postDocRef.id);
+    //   console.log("HERE IS NEW POST ID", postDocRef.id);
 
       // check if selectedFile exists, if it does, do image processing
       if (selectedFile) {
@@ -92,7 +92,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
-        console.log("HERE IS DOWNLOAD URL", downloadURL);
+        // console.log("HERE IS DOWNLOAD URL", downloadURL);
       }
 
       router.back();

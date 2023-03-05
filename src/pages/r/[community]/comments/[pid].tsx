@@ -22,7 +22,7 @@ const PostPage = () => {
     usePosts();
 
   const fetchPost = async (postId: string) => {
-    console.log("FETCHING POST");
+    // console.log("FETCHING POST");
     try {
       const postDocRef = doc(firestore, "posts", postId);
       const postDoc = await getDoc(postDocRef);

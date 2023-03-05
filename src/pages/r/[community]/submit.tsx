@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const SubmitPostPage = () => {
   const [user] = useAuthState(auth);
   const { communityStateValue } = useCommunityData();
-  console.log("community", communityStateValue);
+//   console.log("community", communityStateValue);
 
   return (
     <PageContentLayout maxWidth="1060px">

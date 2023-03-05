@@ -9,6 +9,7 @@ import { setDoc, doc } from "firebase/firestore";
 const OAuthButtons: React.FC = () => {
   const [signInWithGoogle, userCred, loading, error] =
     useSignInWithGoogle(auth);
+//   console.log(signInWithGoogle);
 
   const createUserDocument = async (user: User) => {
     await setDoc(

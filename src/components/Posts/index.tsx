@@ -38,7 +38,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
       const postDocs = await getDocs(postQuery);
       //store in post state
       const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      console.log("post :>> ", posts);
+    //   console.log("post :>> ", posts);
       setPostStateValue((prev) => ({
         ...prev,
         posts: posts as Post[],

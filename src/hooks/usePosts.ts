@@ -63,7 +63,7 @@ const usePosts = (communityData?: Community) => {
         updatedPost.voteStatus = voteStatus + vote;
         updatedPostVotes = [...updatedPostVotes, newVote];
 
-        console.log("NEW VOTE!!!", newVote);
+        // console.log("NEW VOTE!!!", newVote);
       }
       // Removing existing vote
       else {

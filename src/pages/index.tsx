@@ -33,11 +33,11 @@ const Home = () => {
   } = usePosts();
 
   const getUserHomePosts = async () => {
-    console.log("GETTING USER FEED");
+    // console.log("GETTING USER FEED");
     setLoading(true);
     try {
       if (communityStateValue.mySnippets.length) {
-        console.log("GETTING POSTS IN USER COMMUNITIES");
+        // console.log("GETTING POSTS IN USER COMMUNITIES");
 
         const myCommunityIds = communityStateValue.mySnippets.map(
           (snippet) => snippet.communityId
@@ -66,7 +66,7 @@ const Home = () => {
   };
 
   const getNoUserHomePosts = async () => {
-    console.log("GETTING NO USER FEED");
+    // console.log("GETTING NO USER FEED");
     setLoading(true);
     try {
       const postQuery = query(
@@ -79,7 +79,7 @@ const Home = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("NO USER FEED", posts);
+    //   console.log("NO USER FEED", posts);
       setPostStateValue((prev) => ({
         ...prev,
         posts: posts as Post[],

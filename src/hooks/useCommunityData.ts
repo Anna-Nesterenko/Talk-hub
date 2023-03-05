@@ -30,7 +30,7 @@ const useCommunityData = () => {
   const [error, setError] = useState("");
 
   const onJoinOrLeaveCommunity = (community: Community, isJoined?: boolean) => {
-    console.log("ON JOIN LEAVE", community.id);
+    // console.log("ON JOIN LEAVE", community.id);
 
     if (!user) {
       setAuthModalState({ open: true, view: "login" });
@@ -46,7 +46,7 @@ const useCommunityData = () => {
   };
 
   const joinCommunity = async (community: Community) => {
-    console.log("JOINING COMMUNITY: ", community.id);
+    // console.log("JOINING COMMUNITY: ", community.id);
     try {
       const batch = writeBatch(firestore);
 
@@ -121,7 +121,7 @@ const useCommunityData = () => {
   };
 
   const getCommunityData = async (communityId: string) => {
-    console.log("GETTING COMMUNITY DATA");
+    // console.log("GETTING COMMUNITY DATA");
 
     try {
       const communityDocRef = doc(firestore, "communities", communityId);
